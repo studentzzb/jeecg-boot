@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8090
   tomcat: 
     max-swallow-size: -1
   servlet:
@@ -95,9 +95,9 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+          url: jdbc:mysql://127.0.0.1:3306/jeecg_boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
           username: root
-          password: root
+          password: toor
           driver-class-name: com.mysql.jdbc.Driver
           # 多数据源配置
           #multi-datasource1:
@@ -108,7 +108,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 10.211.55.4
     lettuce:
       pool:
         max-active: 8   #最大连接数据库连接数,设 0 为没有限制
@@ -141,8 +141,43 @@ jeecg :
     webapp: D://webapp
   #短信秘钥
   sms:
-     accessKeyId: LTAIpW4gUG7xYDNI
-     accessKeySecret: ???
+     accessKeyId: ??
+     accessKeySecret: ??
+  shiro:
+     excludeUrls: /test/jeecgDemo/demo3,/test/jeecgDemo/redisDemo/**,/proxy/**,/mm/crawler/**,/wx/crawler/**,/detail/**
+  #阿里云oss存储配置
+  oss:
+    type: aliyun
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKey: ??
+    secretKey: ??
+    bucketName: jeecgos
+    properties:
+      aliyun:
+        protocol: https
+  # ElasticSearch 设置
+  elasticsearch:
+    cluster-name: my-application
+    cluster-nodes: 127.0.0.1:9200
+#  #腾讯云cos存储配置
+#  oss:
+#    type: qc
+#    #跟地区有关
+#    endpoint: cos.ap-beijing-1.myqcloud.com
+#    accessKey: ??
+#    secretKey: ??
+#    bucketName: jeecg-1251108935
+#    properties:
+#      qc:
+#        #地区
+#        region: ap-beijing-1
+#        #存储路径
+#        prefix: jeecgboot
+
+#Mybatis输出sql日志
+logging:
+  level:
+    org.jeecg.modules.system.mapper : debug
 #cas单点登录
 cas:
   prefixUrl: http://cas.example.org:8443/cas

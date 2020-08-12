@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.proxy.crawler.mapper.WxCrawlerMapper">
+
+	<!--批量查询MD5-->
+	<select id="queryByMd5" parameterType="String" resultType="org.jeecg.modules.proxy.crawler.entity.WxCrawlerInfo">
+		select id, md5 from wx_crawler_info where md5 in
+		<foreach item="key" collection="md5Array" open="(" separator="," close=")">
+			#{key}
+		</foreach>
+	</select>
+
+</mapper>

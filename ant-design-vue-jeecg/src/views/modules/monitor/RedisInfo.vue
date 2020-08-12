@@ -2,14 +2,14 @@
   <a-skeleton active :loading="loading" :paragraph="{rows: 17}">
     <a-card>
       <!-- Radis 信息实时监控 -->
-      <a-row :gutter="8">
-        <a-col :sm="24" :xl="12">
-          <area-chart-ty v-bind="memory"/>
-        </a-col>
-        <a-col :sm="24" :xl="12">
-          <area-chart-ty v-bind="key"/>
-        </a-col>
-      </a-row>
+<!--      <a-row :gutter="8">-->
+<!--        <a-col :sm="24" :xl="12">-->
+<!--          <area-chart-ty v-bind="memory"/>-->
+<!--        </a-col>-->
+<!--        <a-col :sm="24" :xl="12">-->
+<!--          <area-chart-ty v-bind="key"/>-->
+<!--        </a-col>-->
+<!--      </a-row>-->
 
       <h3>Redis 详细信息</h3>
       <a-table
@@ -52,15 +52,15 @@
           lineColor: '#DC143C'
         },
         // 内存实时占用情况
-        memory: {
-          title: 'Radis 内存实时占用情况（KB）',
-          dataSource: [],
-          y: '内存（KB）',
-          min: 0,
-          max: 3000,
-          height: 340,
-          lineSize: 8
-        },
+        // memory: {
+        //   title: 'Radis 内存实时占用情况（KB）',
+        //   dataSource: [],
+        //   y: '内存（KB）',
+        //   min: 0,
+        //   max: 3000,
+        //   height: 340,
+        //   lineSize: 8
+        // },
         redisInfo: [],
         columns: [{
           title: 'Key',
@@ -76,46 +76,46 @@
           dataIndex: 'value'
         }],
         url: {
-          keysSize: '/actuator/redis/keysSize',
-          memoryInfo: '/actuator/redis/memoryInfo',
+          // keysSize: '/actuator/redis/keysSize',
+          // memoryInfo: '/actuator/redis/memoryInfo',
           info: '/actuator/redis/info'
         },
         path: '/monitor/redis/info'
       }
     },
     mounted() {
-      this.openTimer()
+      // this.openTimer()
       this.loadRedisInfo()
       setTimeout(() => {
         this.loadData()
       }, 1000)
     },
     beforeDestroy() {
-      this.closeTimer()
+      // this.closeTimer()
     },
     methods: {
 
       /** 开启定时器 */
-      openTimer() {
-        this.loadData()
-        this.closeTimer()
-        this.timer = setInterval(() => {
-          if (this.$route.path === this.path) {
-            this.loadData()
-          }
-        }, this.millisec)
-      },
+      // openTimer() {
+        // this.loadData()
+        // this.closeTimer()
+        // this.timer = setInterval(() => {
+        //   if (this.$route.path === this.path) {
+        //     this.loadData()
+        //   }
+        // }, this.millisec)
+      // },
 
       /** 关闭定时器 */
-      closeTimer() {
-        if (this.timer) clearInterval(this.timer)
-      },
+      // closeTimer() {
+      //   if (this.timer) clearInterval(this.timer)
+      // },
 
       /** 查询数据 */
       loadData() {
         Promise.all([
-          getAction(this.url.keysSize),
-          getAction(this.url.memoryInfo)
+          // getAction(this.url.keysSize),
+          // getAction(this.url.memoryInfo)
         ]).then((res) => {
           let time = moment().format('hh:mm:ss')
 
@@ -145,8 +145,8 @@
 
         }).catch((e) => {
           console.error(e)
-          this.closeTimer()
-          this.$message.error('获取 Redis 信息失败')
+          // this.closeTimer()
+          // this.$message.error('获取 Redis 信息失败')
         }).finally(() => {
           this.loading = false
         })

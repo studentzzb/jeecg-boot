@@ -3,6 +3,9 @@ import App from './App.vue'
 import Storage from 'vue-ls'
 import router from './router'
 import store from './store/'
+// import ECharts from 'vue-echarts'
+// import echarts from '@/components/echarts/echarts.simple'
+import echarts from 'echarts'
 
 import { VueAxios } from "@/utils/request"
 
@@ -18,9 +21,8 @@ import VueApexCharts from 'vue-apexcharts'
 
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
-import "@jeecg/antd-onine"
-import '@jeecg/antd-onine/dist/OnlineForm.css'
-
+import "@jeecg/antd-online"
+import '@jeecg/antd-online/dist/OnlineForm.css'
 
 import {
   ACCESS_TOKEN,
@@ -43,6 +45,8 @@ import vueBus from '@/utils/vueBus';
 import JeecgComponents from '@/components/jeecg/index'
 
 Vue.config.productionTip = false
+Vue.prototype.$echarts = echarts
+// Vue.component('v-chart', ECharts)
 Vue.use(Storage, config.storageOptions)
 Vue.use(Antd)
 Vue.use(VueAxios, router)
