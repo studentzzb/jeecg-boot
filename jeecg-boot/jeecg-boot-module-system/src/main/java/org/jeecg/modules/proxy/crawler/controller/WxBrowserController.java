@@ -31,7 +31,7 @@ public class WxBrowserController {
     private static Map<String, String> headerMap = Maps.newHashMap();
     private static final String PARAM_OFFSET            = "offset";
     private static final String WX_HOST                 = "https://mp.weixin.qq.com";
-    private static final String WX_PIC_PATH_DIR         = "/Users/jerry.zhou/temp/test/";
+    private static final String WX_PIC_PATH_DIR         = "/root/app/mamamiya/wx-pic/";
 
     // 最多拉取1w页
     private static final Integer MAX_PAGE = 10000;
