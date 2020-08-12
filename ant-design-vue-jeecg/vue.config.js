@@ -64,7 +64,7 @@ module.exports = {
         }
       },*/
       '/cream': {
-        target: 'http://localhost:8090', //请求本地 需要jeecg-boot后台项目
+        target: 'http://172.25.94.40:8090', //请求本地 需要jeecg-boot后台项目
         ws: false,
         changeOrigin: true
       },
