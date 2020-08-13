@@ -10,8 +10,8 @@ import java.net.URLConnection;
 @Slf4j
 public class PicDownloadUtil {
 
-	private static final String WX_PIC_PATH_DIR         	= "/www/download/mamamiya/wx-pic/";
-	private static final String PIC_HOST                 	= "http://pic.mamamiya.club/";
+	private static final String WX_PIC_PATH_DIR         	= "/www/download/mamamiya/wx-pic/pic/";
+	private static final String PIC_HOST                 	= "http://mamamiya.club/pic/";
 	private static final String PIC_SUFFIX_JPG              = ".jpg";
 
 	public static String downloadPic(String urlStr) {
