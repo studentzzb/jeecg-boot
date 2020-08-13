@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.util.MD5Util;
+import org.jeecg.common.util.PicDownloadUtil;
 import org.jeecg.config.enumer.RequestHeaderEnum;
 import org.jeecg.config.util.MyOkhttpHelper;
 import org.jeecg.modules.proxy.crawler.entity.WxCrawlerInfo;
@@ -31,7 +32,6 @@ public class WxBrowserController {
     private static Map<String, String> headerMap = Maps.newHashMap();
     private static final String PARAM_OFFSET            = "offset";
     private static final String WX_HOST                 = "https://mp.weixin.qq.com";
-    private static final String WX_PIC_PATH_DIR         = "/www/download/mamamiya/wx-pic/";
 
     // 最多拉取1w页
     private static final Integer MAX_PAGE = 10000;
@@ -166,7 +166,7 @@ public class WxBrowserController {
                         continue;
                     }
                     // 下载预览图片
-                    downloadCrawlerCoverPic(crawlerInfo.getCover());
+                    PicDownloadUtil.downloadPic(crawlerInfo.getCover());
                     // 爬取详情
                     requestBuilder.url(crawlerInfo.getContentUrl().replace("http", "https"));
                     String articleResponse = MyOkhttpHelper.getResponseBody(requestBuilder.build(), true, false);
@@ -184,31 +184,31 @@ public class WxBrowserController {
         return JSON.toJSONString(Result.ok(startStr + "-----" + endStr));
     }
 
-    private void downloadCrawlerCoverPic(String urlStr) {
-        if(StringUtils.isEmpty(urlStr) || !urlStr.contains("http")) {
-            return;
-        }
-        String md5 = MD5Util.MD5Encode(urlStr, "utf8");
-        String fileName = md5 + ".jpg";
-        try{
-            URL url = new URL(urlStr);
-            URLConnection con = url.openConnection();
-            con.setConnectTimeout(5000);
-            InputStream is = con.getInputStream();
-            byte[] bs = new byte[1024];
-            int len;
-            File sf=new File(WX_PIC_PATH_DIR + fileName);
-            OutputStream os = new FileOutputStream(sf);
-            while ((len = is.read(bs)) != -1) {
-                os.write(bs, 0, len);
-            }
-            os.close();
-            is.close();
-
-        } catch (IOException e) {
-            log.error("WxBrowserController downloadCrawlerCoverPic error -> " + e.getMessage(), e);
-        }
-    }
+//    private void downloadCrawlerCoverPic(String urlStr) {
+//        if(StringUtils.isEmpty(urlStr) || !urlStr.contains("http")) {
+//            return;
+//        }
+//        String md5 = MD5Util.MD5Encode(urlStr, "utf8");
+//        String fileName = md5 + ".jpg";
+//        try{
+//            URL url = new URL(urlStr);
+//            URLConnection con = url.openConnection();
+//            con.setConnectTimeout(5000);
+//            InputStream is = con.getInputStream();
+//            byte[] bs = new byte[1024];
+//            int len;
+//            File sf=new File(WX_PIC_PATH_DIR + fileName);
+//            OutputStream os = new FileOutputStream(sf);
+//            while ((len = is.read(bs)) != -1) {
+//                os.write(bs, 0, len);
+//            }
+//            os.close();
+//            is.close();
+//
+//        } catch (IOException e) {
+//            log.error("WxBrowserController downloadCrawlerCoverPic error -> " + e.getMessage(), e);
+//        }
+//    }
 
     private List<WxCrawlerInfo> parseResponseInfo(String responseStr, String defaultAuthor) {
         JSONObject object = JSON.parseObject(responseStr);
