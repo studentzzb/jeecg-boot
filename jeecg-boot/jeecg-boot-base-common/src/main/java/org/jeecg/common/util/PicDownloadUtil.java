@@ -21,6 +21,7 @@ public class PicDownloadUtil {
 		}
 		String md5 = MD5Util.MD5Encode(urlStr, "utf8");
 		String fileName = md5 + PIC_SUFFIX_JPG;
+		String newPicdUrl = PIC_HOST + fileName;
 		try{
 			URL url = new URL(urlStr);
 			URLConnection con = url.openConnection();
@@ -28,7 +29,12 @@ public class PicDownloadUtil {
 			InputStream is = con.getInputStream();
 			byte[] bs = new byte[1024];
 			int len;
-			File sf=new File(WX_PIC_PATH_DIR + fileName);
+			File sf = new File(WX_PIC_PATH_DIR + fileName);
+			if(sf.exists()) {
+				is.close();
+				log.info("Repeat Pic, Location -> " + newPicdUrl);
+				return newPicdUrl;
+			}
 			OutputStream os = new FileOutputStream(sf);
 			while ((len = is.read(bs)) != -1) {
 				os.write(bs, 0, len);
@@ -36,7 +42,7 @@ public class PicDownloadUtil {
 			os.close();
 			is.close();
 
-			String newPicdUrl = PIC_HOST + md5 + PIC_SUFFIX_JPG;
+
 			log.info("PicDownloadUtil downloadPic success -> " + newPicdUrl);
 			return newPicdUrl;
 		} catch (IOException e) {

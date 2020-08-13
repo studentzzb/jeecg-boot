@@ -78,6 +78,7 @@ public class WxDetailController {
             String wrappedPicUrl = PicDownloadUtil.downloadPic(picUrl);
             if(!StringUtils.isEmpty(wrappedPicUrl)) {
                 img.attr("data-src", wrappedPicUrl);
+                img.removeAttr("crossorigin");
             }
         }
         return document;
